@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宓小童 - 个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.7;
+            color: #444;
+            background-color: #F0E6F6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            background-color: rgba(127,0,127,0.9);
+            padding: 0.6rem;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(5px);
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: #f0e6f6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            background: white;
+            margin: 1.5rem 0;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(127,0,127,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(127,0,127,0.2);
+        }
+
+        /* 个人介绍卡片样式 */
+        .profile-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .profile-card {
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #f8f5ff;
+            border: 1px solid rgba(127,0,127,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(127,0,127,0.1);
+        }
+
+        .profile-card i {
+            font-size: 1.8rem;
+            color: #7F007F;
+            margin-bottom: 1rem;
+        }
+
+        .profile-card h3 {
+            color: #7F007F;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .profile-card p {
+            margin: 0.5rem 0;
+            color: #555;
+            line-height: 1.6;
+            font-size: 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .profile-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #7F007F;
+        }
+
+        .profile-card i {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: #7F007F;
+        }
+
+        .profile-card {
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #f8f5ff;
+            border: 1px solid rgba(127,0,127,0.1);
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        h1 {
+            color: #7F007F;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            color: #7F007F;
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+            font-weight: 500;
+            border-bottom: 2px solid rgba(127,0,127,0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .education-item {
+            margin: 1.5rem 0;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .contact-info i {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            color: #7F007F;
+            transition: all 0.2s ease;
+        }
+
+        .contact-info:hover i {
+            transform: scale(1.1);
+            color: #5A005A;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            background-color: rgba(127,0,127,0.05);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        li:hover {
+            background-color: rgba(127,0,127,0.1);
+            transform: translateX(4px);
+        }
+
+        .honors-list {
+            padding-left: 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #7F007F;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 1.5rem;
+            position: relative;
+            width: 45%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(127,0,127,0.1);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(127,0,127,0.2);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #7F007F;
+            border: 3px solid white;
+            top: 24px;
+            right: -8px;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -8px;
+        }
+
+        .timeline-item .time {
+            font-size: 0.9rem;
+            color: #7F007F;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .timeline-item .content {
+            color: #444;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 8px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                margin-left: 0;
+            }
+
+            .timeline-item::before {
+                left: -8px !important;
+                right: auto;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div id="welcome-screen" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: white; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease, transform 0.5s ease;">
+        <h1 style="font-size: 6rem; color: #7F007F; font-weight: bold; transition: transform 0.5s ease;">欢迎光临</h1>
+        <p style="font-size: 1.5rem; color: #7F007F; animation: blink 1.5s infinite; margin-top: 1rem;">下划开启探索之旅吧</p>
+    </div>
+
+    <script>
+        let welcomeScreen = document.getElementById('welcome-screen');
+        let scrolled = false;
+
+        function hideWelcomeScreen() {
+            welcomeScreen.style.opacity = '0';
+            welcomeScreen.querySelector('h1').style.transform = 'translateY(-50px)';
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+            }, 500);
+            scrolled = true;
+        }
+
+        function showWelcomeScreen() {
+            welcomeScreen.style.display = 'flex';
+            welcomeScreen.querySelector('h1').style.transform = 'translateY(0)';
+            setTimeout(() => {
+                welcomeScreen.style.opacity = '1';
+            }, 10);
+            scrolled = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!scrolled && window.scrollY > 50) {
+                hideWelcomeScreen();
+            }
+        });
+
+        window.addEventListener('wheel', (e) => {
+            if (e.deltaY < 0 && window.scrollY === 0) {
+                showWelcomeScreen();
+            }
+        });
+    </script>
+
+    <nav>
+        <ul>
+            <li style="margin-right: auto; color: white; font-weight: bold; padding: 0.5rem 1.5rem;">欢迎来到宓小童的个人主页！</li>
+            <li><a href="#about">个人简介</a></li>
+            <li><a href="#education">教育经历</a></li>
+            <li><a href="#practice">实践经历</a></li>
+            <li><a href="#skills">技能兴趣</a></li>
+            <li><a href="#contact">联系方式</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="about">
+            <h1 style="text-align: center; margin-bottom: 1rem;">宓小童</h1>
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+                <div style="width: 120px; padding: 0.5rem; border-radius: 6px; background-color: #7F007F; color: white; text-align: center; display: flex; align-items: center; justify-content: center;">
+                    <h3 style="margin: 0; font-size: 0.9rem; line-height: 1.2;">硕士研究生</h3>
+                </div>
+                <div style="width: 120px; padding: 0.5rem; border-radius: 6px; background-color: white; color: #7F007F; text-align: center; border: 1px solid #7F007F; display: flex; align-items: center; justify-content: center;">
+                    <h3 style="margin: 0; font-size: 0.9rem; line-height: 1.2;">2024级</h3>
+                </div>
+            </div>
+            <div class="profile-cards" style="display: flex; gap: 1.5rem; max-width: 1000px; margin: 0 auto; align-items: stretch;">
+                <div class="profile-card" style="flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; min-height: 240px;">
+                    <div>
+                        <i class="fas fa-university" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <h3 style="margin-bottom: 1rem;">院校专业</h3>
+                        <p style="margin-bottom: 0.5rem;">华中农业大学 资源与环境学院</p>
+                        <p>农业工程与信息技术专业</p>
+                    </div>
+                </div>
+                <div class="profile-card" style="flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; min-height: 240px;">
+                    <div>
+                        <i class="fas fa-user-graduate" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <h3 style="margin-bottom: 1rem;">导师信息</h3>
+                        <p>曾玲琳 副教授</p>
+                    </div>
+                </div>
+                <div class="profile-card" style="flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; min-height: 240px;">
+                    <div>
+                        <i class="fas fa-microscope" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <h3 style="margin-bottom: 1rem;">研究方向</h3>
+                        <p style="margin-bottom: 0.5rem;">农业面源污染</p>
+                        <p>生态遥感</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <section id="education">
+            <h2>教育经历</h2>
+            <div class="education-item">
+                <h3>山东理工大学</h3>
+                <p>本科 | 地理信息科学专业</p>
+                <p>主要课程：地图学、数据结构、地理信息系统软件应用、地理信息系统、遥感原理与应用、GNSS原理与应用、测量学、地理信息系统开发、WebGIS等</p>
+            </div>
+            <div class="education-item">
+                <h3>华中农业大学</h3>
+                <p>硕士研究生 | 农业工程与信息技术专业</p>
+                <p>2024年9月 - 至今</p>
+                <p>导师：曾玲琳</p>
+                <p>主要课程：农业信息技术、农业定量遥感、农业信息化案例、R语言空间分析、人工智能基础理论课、人工智能基础实验课、数据驱动的可重复性研究等</p>
+            </div>
+        </section>
+
+        <section id="practice">
+            <h2>实践经历</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">2023年7月</div>
+                    <div class="content">武汉大学第五届定量遥感暑期学校</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">2023年9月</div>
+                    <div class="content">日照日出音乐节志愿者</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">2024年7月</div>
+                    <div class="content">武汉大学第六届定量遥感暑期学校</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">2024年8月</div>
+                    <div class="content">北京大学暑期“定量遥感”研究生精品课程班</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">2024年9月</div>
+                    <div class="content">加入华中农业大学研究生科学技术协会科普部</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">2024年11月</div>
+                    <div class="content">获得华中农业大学研究生乙等奖学金</div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="skills">
+            <h2>技能兴趣</h2>
+            <div class="profile-cards" style="margin-top: 1.5rem;">
+                <div class="profile-card">
+                    <i class="fas fa-laptop-code" style="font-size: 2rem;"></i>
+                    <h3>专业技能</h3>
+                    <p style="font-size: 1rem; line-height: 1.6;">
+                        Office，ArcGIS，SuperMap，南方CASS、ENVI、3D MAX等，视频剪辑软件比如Premiere等的基础使用
+                    </p>
+                </div>
+                <div class="profile-card">
+                    <i class="fas fa-award" style="font-size: 2rem;"></i>
+                    <h3>专业证书</h3>
+                    <p style="font-size: 1rem; line-height: 1.6;">
+                        普通话水平测试等级证书（91.8分二级甲等），教师资格证书（高中地理），C1驾照
+                    </p>
+                </div>
+                <div class="profile-card">
+                    <i class="fas fa-camera" style="font-size: 2rem;"></i>
+                    <h3>兴趣爱好</h3>
+                    <p style="font-size: 1rem; line-height: 1.6;">
+                        摄影，看纪录片、阅读（杂志），旅行
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="contact">
+            <h2>联系方式</h2>
+            <div class="profile-cards" style="margin-top: 1.5rem;">
+                <div class="profile-card">
+                    <i class="fas fa-envelope" style="font-size: 2rem; animation: float 3s ease-in-out infinite;"></i>
+                    <h3>电子邮箱</h3>
+                    <p style="font-size: 1rem; line-height: 1.6;">
+                        mxttt17@163.com
+                    </p>
+                </div>
+                <div class="profile-card">
+                    <i class="fab fa-github" style="font-size: 2rem; animation: float 3s ease-in-out infinite; animation-delay: 0.5s;"></i>
+                    <h3>GitHub</h3>
+                    <p style="font-size: 1rem; line-height: 1.6;">
+                        github.com/mxttt173
+                    </p>
+                </div>
+                <div class="profile-card">
+                    <i class="fas fa-map-marker-alt" style="font-size: 2rem; animation: float 3s ease-in-out infinite; animation-delay: 1s;"></i>
+                    <h3>联系地址</h3>
+                    <p style="font-size: 1rem; line-height: 1.6;">
+                        湖北省武汉市洪山区狮子山街1号华中农业大学
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <style>
+            @keyframes float {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+            }
+        </style>
+    </div>
+
+    <footer style="text-align: center; padding: 0.8rem; background: linear-gradient(45deg, #7F007F, #5A005A); color: white; margin-top: auto;">
+        <p style="font-size: 1.1rem; font-weight: bold;">相信土地的力量！耕耘土地，耕耘自己。</p>
+    </footer>
+</body>
+</html>
